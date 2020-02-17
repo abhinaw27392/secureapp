@@ -1,7 +1,7 @@
 package com.ahinfotech.secureapp.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -29,23 +29,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return provider;
 	}
 
-	//for your own login page authentication
+	// for your own login page authentication
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable()
-		.authorizeRequests().antMatchers("/login").permitAll()
-		.anyRequest().authenticated()
-		.and()
-		.formLogin()
-		.loginPage("/login").permitAll()
-		.and()
-		.logout().invalidateHttpSession(true)
-		.clearAuthentication(true)
-		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-		.logoutSuccessUrl("/logout-success").permitAll();
+		http.csrf().disable().authorizeRequests().antMatchers("/login").permitAll().anyRequest().authenticated().and()
+				.formLogin().loginPage("/login").permitAll().and().logout().invalidateHttpSession(true)
+				.clearAuthentication(true).logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.logoutSuccessUrl("/logout-success").permitAll();
 	}
-	
-	
+
 	// login with google
 //	@Override
 //	protected void configure(HttpSecurity http) throws Exception {
@@ -59,7 +51,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //		.logoutSuccessUrl("/logout-success").permitAll();
 //		
 //	}
-	
-	
+
+	// register custom filter using FilterRegistrationBean for specific URI only (it
+	// will apply filter for these URL pattern only)
+//	@Bean
+//	public FilterRegistrationBean<CORSServletFilter> filterRegistrationBean() {
+//		FilterRegistrationBean<CORSServletFilter> registrationBean = new FilterRegistrationBean<CORSServletFilter>();
+//		CORSServletFilter filter = new CORSServletFilter();
+//		registrationBean.setFilter(filter);
+//		registrationBean.addUrlPatterns("/user/*");
+//		registrationBean.setOrder(2);
+//		return registrationBean;
+//	}
 
 }
