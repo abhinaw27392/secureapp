@@ -53,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //	}
 
 	// register custom filter using FilterRegistrationBean for specific URI only (it
-	// will apply filter for these URL patterns only)
+	// will apply filter for these URL pattern only)
 //	@Bean
 //	public FilterRegistrationBean<CORSServletFilter> filterRegistrationBean() {
 //		FilterRegistrationBean<CORSServletFilter> registrationBean = new FilterRegistrationBean<CORSServletFilter>();
